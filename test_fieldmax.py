@@ -6,5 +6,26 @@ import fieldmax  # Now you can import the module
 
 FMII = fieldmax.FieldMax(r'C:\Program Files (x86)\Coherent\FieldMaxII PC\Drivers\Win10\FieldMax2Lib\x64\FieldMax2Lib.dll')
 FMII.openDriver()
-print( FMII.get_SerialNumber() )
+#print( FMII.get_SerialNumber() )
+
+
+FMII.sync()
+
+print(FMII.get_dataPoint())
+print(FMII.get_dataPoint())
+print(FMII.get_dataPoint())
+print(FMII.get_dataPoint())
+print(FMII.get_dataPoint())
+print(FMII.get_dataPoint())
+print(FMII.get_dataPoint())
+print(FMII.get_dataPoint())
+print(FMII.get_dataPoint())
+print(FMII.get_dataPoint())
+print(FMII.get_dataPoint())
+print(FMII.get_dataPoint())
+
+
+
+
 FMII.closeDriver()
+
