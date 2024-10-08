@@ -21,6 +21,7 @@ FMII.closeDriver()
 
 
 #https://pypi.org/project/ThorlabsPM100/
+#https://github.com/clade/ThorlabsPM100/blob/master/ThorlabsPM100/ThorlabsPM100.py
 rm = pyvisa.ResourceManager('@py')
 #print(rm.list_resources())
 inst = rm.open_resource('USB0::0x1313::0x8072::P2010300::0::INSTR')
