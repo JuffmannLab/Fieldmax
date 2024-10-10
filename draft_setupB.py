@@ -8,6 +8,7 @@ import pyvisa
 #import Thorlabs powermeter script wrapper
 from ThorlabsPM100 import ThorlabsPM100
 
+#----------------------------------
 #connecting the powermeters
 
 #-------FieldMaxII connection--------------
@@ -15,16 +16,9 @@ path_to_fm2 = r'C:\Program Files (x86)\Coherent\FieldMaxII PC\Drivers\Win10\Fiel
 fm2 = fieldmax.FieldMax(path_to_fm2)
 fm2.openDriver()
 print(fm2.get_SerialNumber())
-
 #sync??? what is this for
 fm2.sync()
-
-#get measurement printed
 print('FM2 Connected and initial reading: ', fm2.get_dataPoint())
-
-
-#i guess this is for disconnecting??
-fm2.closeDriver()
 
 #--------ThorlabsPM100 powermeter connection ---
 #https://github.com/clade/ThorlabsPM100/blob/master/ThorlabsPM100/ThorlabsPM100.py
@@ -43,7 +37,20 @@ print("Wavelength :", th100.sense.correction.wavelength)
 print("Measurement type :", th100.getconfigure)
 print("TH100 connected and initial reading: ", th100.read)
 
-#zeroing here!!!
+#--------------------------------
+#Zeroing
+#--------------------------------
+#FieldmaxII Zeroing
+fm2.zeroing()
+print('fm2 zeroed and reading:', fm2.get_dataPoint())
+
+#Thorlabs zeroing, Performs zero adjustment routine 
+th100.sense.correction.collect.zero.initiate()
+print('th100 zeroed, ', th100.sense.correction.collect.zero.state)
+print('th100 zero magnitude', th100.sense.correction.collect.zero.magnitude)
+
+#----------------
+#spagetky
 
 which_pwmeter = 'fm2'
 power_meter_treshold = 300e-3 #Watts, the max range of TH100 and min working of FM2
@@ -107,3 +114,9 @@ for i, step in enumerate(steps):
 
 #exporting the csv with the naming acc. to laser intensity
 export_data.to_csv(f'measured_{laser_intensity}.csv', index=False)
+
+
+
+#close drivers
+fm2.closeDriver()
+#close th100? i think it auto closes once the object is trashed, but cant find the mention in docs
