@@ -1,7 +1,11 @@
 import sys
-sys.path.append(r"C:\Users\thomas\Documents\GitHub\Fieldmax\pyFieldMaxII-main\fieldmax")
 
-import fieldmax  # Now you can import the module
+#path append is replaced by copying the module directly into this repository and importing it using 'from'
+# sys.path.append(r"C:\Users\thomas\Documents\GitHub\Fieldmax\pyFieldMaxII-main\fieldmax")
+# import fieldmax  # Now you can import the module
+
+#importing pyFieldMaxII module
+from pyFieldMaxII.fieldmax import fieldmax
 
 #import visa
 import pyvisa
