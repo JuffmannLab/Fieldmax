@@ -1,0 +1,5 @@
+The problem with connecting to the ThorlabsPM100USB is that there aren't 'admin' rights when accessing from the pyvenv 'Fieldmax'.
+It works via a workaroung - 1) use the main python interpreter 'base'. 2) run the th100_connect.py - once the initial reading is read off - OK
+Now it 'has been registered' and it's okay to go back to the pyvenv for Fieldmax and run the other files with th100 comms.
+
+suggestions: integrate getting the rights to the usb connection into the script

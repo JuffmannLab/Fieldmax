@@ -9,26 +9,35 @@ from pyFieldMaxII.fieldmax import fieldmax
 
 #import visa
 import pyvisa
+import usb
 from ThorlabsPM100 import ThorlabsPM100
 
-FMII = fieldmax.FieldMax(r'C:\Program Files (x86)\Coherent\FieldMaxII PC\Drivers\Win10\FieldMax2Lib\x64\FieldMax2Lib.dll')
-FMII.openDriver()
-#print( FMII.get_SerialNumber() )
+# FMII = fieldmax.FieldMax(r'C:\Program Files (x86)\Coherent\FieldMaxII PC\Drivers\Win10\FieldMax2Lib\x64\FieldMax2Lib.dll')
+# FMII.openDriver()
+# #print( FMII.get_SerialNumber() )
 
 
-FMII.sync()
+# FMII.sync()
 
-print(FMII.get_dataPoint())
+# print(FMII.get_dataPoint())
 
-FMII.closeDriver()
+# FMII.closeDriver()
 
+import logging
+import pyvisa
 
+# logging.basicConfig(level=logging.DEBUG)
+# rm = pyvisa.ResourceManager("@py")
+# rm.list_resources()
 
 #https://pypi.org/project/ThorlabsPM100/
 #https://github.com/clade/ThorlabsPM100/blob/master/ThorlabsPM100/ThorlabsPM100.py
+# rm = pyvisa.ResourceManager()
 rm = pyvisa.ResourceManager('@py')
-#print(rm.list_resources())
-inst = rm.open_resource('USB0::0x1313::0x8072::P2010300::0::INSTR')
+print(rm.list_resources())
+
+inst = rm.open_resource('USB0::4883::32882::P2010300::0::INSTR')
+# inst = rm.open_resource('USB0::4883::32882::P2010300::0::INSTR')
 power_meter = ThorlabsPM100(inst=inst)
 inst.timeout = None
 
@@ -38,6 +47,6 @@ print("Wavelength :", power_meter.sense.correction.wavelength)
 print("Measurement type :", power_meter.getconfigure)
 print("Current value    :", power_meter.read)
 
-print(inst.query("*IDN?"))
-print(rm)
-print(inst)
+# print(inst.query("*IDN?"))
+# print(rm)
+# print(inst)
