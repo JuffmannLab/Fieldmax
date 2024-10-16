@@ -19,25 +19,39 @@ import libximc.highlevel as ximc
 #import Thorlabs powermeter script wrapper
 from ThorlabsPM100 import ThorlabsPM100
 import time
+
+#-------FieldMaxII connection--------------
+path_to_fm2 = r'C:\Program Files (x86)\Coherent\FieldMaxII PC\Drivers\Win10\FieldMax2Lib\x64\FieldMax2Lib.dll'
+fm2 = fieldmax.FieldMax(path_to_fm2)
+fm2.openDriver()
+print(fm2.get_SerialNumber())
+#sync??? what is this for
+fm2.sync()
+print('FM2 Connected and initial reading: ', fm2.get_dataPoint())
+
+# print('FM2 Connected and initial reading: ', fm2.get_dataPoint())
+
+
+
 #--------ThorlabsPM100 powermeter connection ---
 #https://github.com/clade/ThorlabsPM100/blob/master/ThorlabsPM100/ThorlabsPM100.py
 
-#select python backend and get connected devices on the PC (basically)
-rm = pyvisa.ResourceManager('@py')
-#choose the powermeter !!the adress changes when switching USB connections, identifiable if opened in DevicesManager - Properties - Details - Location Information (or somewhere there, also not 1 to 1 the same adress - have to select from rm.list_resources())
-#print(rm.list_resources())
-inst = rm.open_resource('USB0::4883::32882::P2010300::0::INSTR') 
-th100 = ThorlabsPM100(inst=inst)
-inst.timeout = None
+# #select python backend and get connected devices on the PC (basically)
+# rm = pyvisa.ResourceManager('@py')
+# #choose the powermeter !!the adress changes when switching USB connections, identifiable if opened in DevicesManager - Properties - Details - Location Information (or somewhere there, also not 1 to 1 the same adress - have to select from rm.list_resources())
+# #print(rm.list_resources())
+# inst = rm.open_resource('USB0::4883::32882::P2010300::0::INSTR') 
+# th100 = ThorlabsPM100(inst=inst)
+# inst.timeout = None
 
-th100.configure.scalar.power() #choose power measurements
-th100.sense.correction.wavelength = 1035 #set wavelength
-print("Wavelength :", th100.sense.correction.wavelength)
-print("Measurement type :", th100.getconfigure)
+# th100.configure.scalar.power() #choose power measurements
+# th100.sense.correction.wavelength = 1035 #set wavelength
+# print("Wavelength :", th100.sense.correction.wavelength)
+# print("Measurement type :", th100.getconfigure)
 
-for i in range(10):
-    th100.read
-print("TH100 connected and initial reading: ", th100.read)
+# for i in range(10):
+#     th100.read
+# print("TH100 connected and initial reading: ", th100.read)
 
 
 #connecting rotor
